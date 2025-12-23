@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>azukipart1.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h2 id="incident-name">Incident Name</h2>
+<p><strong>Azuki Import/Export – Credential-Based Intrusion &amp; Data Exfiltration</strong></p>
+<h2 id="organization">Organization</h2>
+<p><strong>Azuki Import/Export Trading Co. (梓貿易株式会社)</strong></p>
+<hr>
+<h2 id="report-metadata">REPORT METADATA</h2>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Date of Report</td>
+<td>2025-11-26</td>
+</tr>
+<tr>
+<td>Incident ID</td>
+<td>AZUKI-TH-2025-001</td>
+</tr>
+<tr>
+<td>Severity Level</td>
+<td>🔴 Critical</td>
+</tr>
+<tr>
+<td>Report Status</td>
+<td>☑ Eradicated</td>
+</tr>
+<tr>
+<td>Escalated To</td>
+<td>Security Operations / Executive Leadership</td>
+</tr>
+<tr>
+<td>Analyst</td>
+<td>Junaid Asghar</td>
+</tr>
+<tr>
+<td>Data Sources</td>
+<td>Microsoft Defender for Endpoint (MDE)</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="executive-summary">EXECUTIVE SUMMARY</h2>
+<p>Azuki Import/Export experienced a credential-based intrusion that resulted in unauthorized access to an IT administrator workstation and subsequent theft of sensitive business data. An external attacker successfully authenticated via Remote Desktop Protocol using compromised credentials, performed internal reconnaissance, established multiple persistence mechanisms, harvested credentials from memory, staged proprietary business data, and exfiltrated it using a legitimate cloud service.</p>
+<p>The attacker leveraged built-in Windows tools and living-off-the-land binaries (LOLbins) to evade detection, including PowerShell, certutil, schtasks, and native RDP utilities. Persistent access was maintained through a scheduled task and the creation of a backdoor local administrator account. Evidence indicates deliberate targeting of pricing and supplier data, directly correlating with the organization’s competitive disadvantage following the incident.</p>
+<p>This activity represents a confirmed malicious intrusion with material business impact.</p>
+<hr>
+<h2 id="summary-of-key-findings">SUMMARY OF KEY FINDINGS</h2>
+<ul>
+<li>Initial access achieved via RDP using valid but compromised credentials</li>
+<li>Defender protections weakened through registry-based exclusion abuse</li>
+<li>Malware staged in a hidden ProgramData directory</li>
+<li>Credential dumping performed using a renamed Mimikatz binary</li>
+<li>Data compressed and exfiltrated to an external cloud service</li>
+<li>Persistent access maintained via scheduled task and local admin account</li>
+</ul>
+<hr>
+<h2 id="incident-details-who--what--when--where--why--how">INCIDENT DETAILS (WHO / WHAT / WHEN / WHERE / WHY / HOW)</h2>
+<h3 id="who">WHO</h3>
+<p><strong>Threat Actor</strong></p>
+<ul>
+<li>Unknown external actor</li>
+<li>Tradecraft consistent with commodity credential-theft and post-exploitation tooling</li>
+</ul>
+<p><strong>Compromised Accounts</strong></p>
+<ul>
+<li><code>kenji.sato</code> (initial access)</li>
+<li><code>support</code> (backdoor local administrator)</li>
+</ul>
+<hr>
+<h3 id="what">WHAT</h3>
+<p>The attacker performed the following actions:</p>
+<ol>
+<li>Gained initial access using stolen credentials over RDP</li>
+<li>Conducted network discovery to identify internal targets</li>
+<li>Weakened endpoint defenses via Defender exclusions</li>
+<li>Downloaded and staged malware using LOLbins</li>
+<li>Established persistence using a scheduled task and local admin account</li>
+<li>Dumped credentials from LSASS memory</li>
+<li>Staged and compressed sensitive business data</li>
+<li>Exfiltrated data using a cloud-based service</li>
+<li>Attempted to remove forensic evidence by clearing event logs</li>
+</ol>
+<hr>
+<h3 id="when-utc">WHEN (UTC)</h3>
+<table>
+<thead>
+<tr>
+<th>Time</th>
+<th>Event</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2025-11-19 18:36</td>
+<td>External attacker authenticated to AZUKI-SL via RDP using compromised credentials</td>
+</tr>
+<tr>
+<td>2025-11-19 18:38</td>
+<td>Network reconnaissance performed to enumerate internal hosts</td>
+</tr>
+<tr>
+<td>2025-11-19 18:40</td>
+<td>Windows Defender exclusions added (extensions and paths)</td>
+</tr>
+<tr>
+<td>2025-11-19 18:42</td>
+<td>Malware downloaded and staged in <code>C:\ProgramData\WindowsCache</code></td>
+</tr>
+<tr>
+<td>2025-11-19 18:45</td>
+<td>Scheduled task created to establish persistence</td>
+</tr>
+<tr>
+<td>2025-11-19 19:05</td>
+<td>Credential dumping executed against LSASS memory</td>
+</tr>
+<tr>
+<td>2025-11-19 19:08</td>
+<td>Backdoor local administrator account created</td>
+</tr>
+<tr>
+<td>2025-11-19 19:10</td>
+<td>Sensitive data compressed into archive for exfiltration</td>
+</tr>
+<tr>
+<td>2025-11-19 19:12</td>
+<td>Data exfiltrated via cloud-based HTTPS channel</td>
+</tr>
+<tr>
+<td>2025-11-19 19:20</td>
+<td>Lateral movement initiated to secondary internal system</td>
+</tr>
+<tr>
+<td>2025-11-19 19:25</td>
+<td>Event logs cleared to impede forensic investigation</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="where">WHERE</h3>
+<p><strong>Primary Affected Host</strong></p>
+<ul>
+<li>AZUKI-SL (IT administrator workstation)</li>
+</ul>
+<p><strong>Directories / Locations</strong></p>
+<ul>
+<li><code>C:\ProgramData\WindowsCache</code></li>
+<li><code>C:\Users\KENJI~1.SAT\AppData\Local\Temp</code></li>
+</ul>
+<p><strong>Network / External Services</strong></p>
+<ul>
+<li>External IP: <code>88.97.178.12</code> (initial access)</li>
+<li>C2 / attacker infrastructure: <code>78.141.196.6</code></li>
+<li>Cloud service used for exfiltration: Discord</li>
+</ul>
+<hr>
+<h3 id="why">WHY</h3>
+<p><strong>Root Cause</strong></p>
+<ul>
+<li>Credential compromise and reuse</li>
+<li>Lack of MFA on privileged access</li>
+<li>Insufficient monitoring of administrative RDP usage</li>
+</ul>
+<p><strong>Attacker Objectives</strong></p>
+<ul>
+<li>Theft of pricing and supplier contract data</li>
+<li>Persistent access for continued exploitation</li>
+<li>Competitive and financial impact</li>
+</ul>
+<hr>
+<h3 id="how-attack-chain-overview">HOW (ATTACK CHAIN OVERVIEW)</h3>
+<ol>
+<li>Initial Access (RDP with stolen credentials)</li>
+<li>Execution (PowerShell and certutil abuse)</li>
+<li>Persistence (Scheduled task + admin account)</li>
+<li>Discovery (Network enumeration)</li>
+<li>Credential Access (LSASS memory dumping)</li>
+<li>Collection (Local data staging and compression)</li>
+<li>Exfiltration (Cloud-based HTTPS channel)</li>
+</ol>
+<hr>
+<h2 id="impact-assessment">IMPACT ASSESSMENT</h2>
+<p><strong>Actual / Potential Impact</strong></p>
+<ul>
+<li>Exposure of supplier contracts and pricing data</li>
+<li>Loss of competitive advantage</li>
+<li>Reputational and financial risk</li>
+</ul>
+<p><strong>Risk Level</strong>
+🔴 Critical</p>
+<hr>
+<h2 id="indicators-of-compromise-iocs">INDICATORS OF COMPROMISE (IOCs)</h2>
+<h3 id="files">Files</h3>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Indicator</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Malware</td>
+<td><code>mm.exe</code></td>
+</tr>
+<tr>
+<td>Malware</td>
+<td><code>svchost.exe</code> (non-standard path)</td>
+</tr>
+<tr>
+<td>Script</td>
+<td><code>wupdate.ps1</code></td>
+</tr>
+<tr>
+<td>Archive</td>
+<td><code>export-data.zip</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="accounts">Accounts</h3>
+<ul>
+<li><code>kenji.sato</code></li>
+<li><code>support</code></li>
+</ul>
+<h3 id="network">Network</h3>
+<ul>
+<li><code>88.97.178.12</code></li>
+<li><code>78.141.196.6</code></li>
+</ul>
+<hr>
+<h2 id="mitre-attck-mapping">MITRE ATT&amp;CK MAPPING</h2>
+<table>
+<thead>
+<tr>
+<th>Tactic</th>
+<th>Technique</th>
+<th>ID</th>
+<th>Evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Initial Access</td>
+<td>Remote Services (RDP)</td>
+<td>T1021.001</td>
+<td>External RDP login</td>
+</tr>
+<tr>
+<td>Execution</td>
+<td>PowerShell</td>
+<td>T1059.001</td>
+<td>Malicious script execution</td>
+</tr>
+<tr>
+<td>Defense Evasion</td>
+<td>Modify Defender</td>
+<td>T1562.001</td>
+<td>Exclusion registry keys</td>
+</tr>
+<tr>
+<td>Persistence</td>
+<td>Scheduled Task</td>
+<td>T1053.005</td>
+<td>schtasks.exe</td>
+</tr>
+<tr>
+<td>Credential Access</td>
+<td>LSASS Dumping</td>
+<td>T1003.001</td>
+<td>sekurlsa::logonpasswords</td>
+</tr>
+<tr>
+<td>Collection</td>
+<td>Archive via Utility</td>
+<td>T1560.001</td>
+<td>ZIP staging</td>
+</tr>
+<tr>
+<td>Exfiltration</td>
+<td>Web Service</td>
+<td>T1567.002</td>
+<td>Discord HTTPS upload</td>
+</tr>
+<tr>
+<td>Lateral Movement</td>
+<td>RDP</td>
+<td>T1021.001</td>
+<td>mstsc.exe</td>
+</tr>
+</tbody>
+</table>
+<h2 id="attack-chain--flag-breakdown">ATTACK CHAIN &amp; FLAG BREAKDOWN</h2>
+<blockquote>
+<p>Each flag represents <strong>one investigation pivot or detection point</strong>.</p>
+</blockquote>
+<h2 id="%F0%9F%9A%A9-flag-1--initial-access-remote-access-source">🚩 FLAG 1 — Initial Access: Remote Access Source</h2>
+<p><strong>Attack Phase:</strong> Initial Access (TA0001)
+<strong>MITRE Technique:</strong> Remote Services: Remote Desktop Protocol (T1021.001)</p>
+<p><strong>Finding:</strong>
+An external IP address (<strong>88.97.178.12</strong>) successfully authenticated to the system via RDP, representing the attacker’s initial access into the environment.</p>
+<p><strong>Why it matters:</strong>
+Identifying the true external source of initial access enables blocking, attribution, and confirms how the compromise began.</p>
+<pre class="hljs"><code><div>DeviceLogonEvents
+| where DeviceName == &quot;azuki-sl&quot;
+| where TimeGenerated between (datetime(2025-11-19) .. datetime(2025-11-20))
+| where ActionType == &quot;LogonSuccess&quot;
+| where AccountName == &quot;kenji.sato&quot;
+| project TimeGenerated, AccountName, LogonType, Protocol, RemoteIP
+| order by TimeGenerated asc
+</div></code></pre>
+<p><img src="image-1.png" alt="DeviceLogonEvents showing successful logon from external IP 88.97.178.12"></p>
+<h2 id="%F0%9F%9A%A9-flag-2--initial-access-compromised-user-account">🚩 FLAG 2 — Initial Access: Compromised User Account</h2>
+<p><strong>Attack Phase:</strong> Initial Access (TA0001)
+<strong>MITRE Technique:</strong> Valid Accounts (T1078)</p>
+<p><strong>Finding:</strong>
+The user account <strong>kenji.sato</strong> (<em>Refer to query from flag1</em>) was used in the successful authentication event associated with the initial unauthorized RDP access.</p>
+<p><strong>Why it matters:</strong>
+Identifying the compromised account defines the scope of credential exposure and drives immediate remediation actions such as password resets, account review, and privilege assessment.</p>
+<h2 id="%F0%9F%9A%A9-flag-3--discovery-network-reconnaissance">🚩 FLAG 3 — Discovery: Network Reconnaissance</h2>
+<p><strong>Attack Phase:</strong> Discovery (TA0007)
+<strong>MITRE Technique:</strong> System Network Configuration Discovery (T1016)</p>
+<p><strong>Finding:</strong>
+The attacker executed the command <strong><code>arp -a</code></strong> to enumerate network neighbors and identify other devices on the local network.</p>
+<p><strong>Why it matters:</strong>
+Enumerating network neighbors helps attackers understand network topology and identify potential lateral movement targets.</p>
+<pre class="hljs"><code><div>DeviceProcessEvents
+| where DeviceName == &quot;azuki-sl&quot;
+| where TimeGenerated between (datetime(2025-11-19) .. datetime(2025-11-20))
+| where AccountName == &quot;kenji.sato&quot;
+| where ProcessCommandLine has_any (&quot;arp&quot;, &quot;ipconfig&quot;, &quot;nbtstat&quot;, &quot;route&quot;)
+| project TimeGenerated, FileName, ProcessCommandLine, ProcessRemoteSessionIP
+| order by TimeGenerated asc
+</div></code></pre>
+<p><img src="image-2.png" alt="DeviceProcessEvents showing ARP network neighbor enumeration"></p>
+<h2 id="%F0%9F%9A%A9-flag-4--defence-evasion-malware-staging-directory">🚩 FLAG 4 — Defence Evasion: Malware Staging Directory</h2>
+<p><strong>Attack Phase:</strong> Defense Evasion (TA0005)
+<strong>MITRE Technique:</strong> Data Staged: Local Data Staging (T1074.001)</p>
+<p><strong>Finding:</strong>
+The attacker created and hid the directory <strong><code>C:\ProgramData\WindowsCache</code></strong>, which was used as the primary staging location for malicious tools and artifacts.</p>
+<p><strong>Why it matters:</strong>
+Hidden staging directories allow attackers to store malware and collected data while evading casual detection and security tooling.</p>
+<pre class="hljs"><code><div>DeviceProcessEvents
+| where DeviceName == &quot;azuki-sl&quot;
+| where TimeGenerated between (datetime(2025-11-19) .. datetime(2025-11-20))
+| where AccountName == &quot;kenji.sato&quot;
+| where ProcessCommandLine has_any (&quot;mkdir&quot;, &quot;New-Item&quot;, &quot;attrib&quot;)
+| project TimeGenerated, FileName, ProcessCommandLine
+| order by TimeGenerated asc
+</div></code></pre>
+<p><img src="image-3.png" alt="DeviceProcessEvents showing attrib.exe hiding C:\ProgramData\WindowsCache"></p>
+<h2 id="%F0%9F%9A%A9-flag-5--defence-evasion-file-extension-exclusions">🚩 FLAG 5 — Defence Evasion: File Extension Exclusions</h2>
+<p><strong>Attack Phase:</strong> Defense Evasion (TA0005)
+<strong>MITRE Technique:</strong> Impair Defenses: Disable or Modify Tools (T1562.001)</p>
+<p><strong>Finding:</strong>
+The attacker added <strong>3 file extensions</strong> (<code>.bat</code>, <code>.ps1</code>, <code>.exe</code>) to Windows Defender exclusion settings to bypass malware scanning.</p>
+<p><strong>Why it matters:</strong>
+Excluding executable and script file types allows malicious tools to run undetected, significantly weakening endpoint protection.</p>
+<pre class="hljs"><code><div>DeviceRegistryEvents
+| where DeviceName == &quot;azuki-sl&quot;
+| where TimeGenerated between (datetime(2025-11-19) .. datetime(2025-11-20))
+| where RegistryKey has @&quot;Windows Defender\Exclusions\Extensions&quot;
+| project TimeGenerated, RegistryValueName
+</div></code></pre>
+<p><img src="image-4.png" alt="DeviceRegistryEvents showing Windows Defender extension exclusions (.bat, .ps1, .exe)"></p>
+<h2 id="%F0%9F%9A%A9-flag-6--defence-evasion-temporary-folder-exclusion">🚩 FLAG 6 — Defence Evasion: Temporary Folder Exclusion</h2>
+<p><strong>Attack Phase:</strong> Defense Evasion (TA0005)
+<strong>MITRE Technique:</strong> Impair Defenses: Disable or Modify Tools (T1562.001)</p>
+<p><strong>Finding:</strong>
+The attacker added the folder path <strong><code>C:\Users\KENJI~1.SAT\AppData\Local\Temp</code></strong> to Windows Defender’s exclusion list, preventing security scanning of files stored in this directory.</p>
+<p><strong>Why it matters:</strong>
+Excluding a temporary directory allows attackers to download, execute, and stage malicious tools without detection, significantly reducing the effectiveness of endpoint protection.</p>
+<pre class="hljs"><code><div>DeviceRegistryEvents
+| where DeviceName == &quot;azuki-sl&quot;
+| where TimeGenerated between (datetime(2025-11-19) .. datetime(2025-11-20))
+| where RegistryKey has @&quot;Windows Defender\Exclusions\Paths&quot;
+| project TimeGenerated, RegistryValueName
+</div></code></pre>
+<p><img src="image-5.png" alt="DeviceRegistryEvents showing Windows Defender path exclusion for Temp directory"></p>
+<h2 id="%F0%9F%9A%A9-flag-7--defence-evasion-download-utility-abuse">🚩 FLAG 7 — Defence Evasion: Download Utility Abuse</h2>
+<p><strong>Attack Phase:</strong> Defense Evasion (TA0005)
+<strong>MITRE Technique:</strong> Living Off the Land Binaries (T1218)</p>
+<p><strong>Finding:</strong>
+The attacker abused the Windows-native binary <strong><code>certutil.exe</code></strong> to download malicious executables and scripts from an external server.</p>
+<p><strong>Why it matters:</strong>
+<code>certutil.exe</code> is a trusted Windows utility, and abusing it for file downloads allows attackers to bypass security controls and blend in with legitimate administrative activity.</p>
+<pre class="hljs"><code><div>DeviceProcessEvents
+| where DeviceName == &quot;azuki-sl&quot;
+| where TimeGenerated between (datetime(2025-11-19) .. datetime(2025-11-20))
+| where ProcessCommandLine has_any (&quot;http&quot;, &quot;Invoke-WebRequest&quot;)
+| project TimeGenerated, FileName, ProcessCommandLine
+</div></code></pre>
+<p><img src="image-6.png" alt="DeviceProcessEvents showing certutil.exe used to download files"></p>
+<h2 id="%F0%9F%9A%A9-flag-8--persistence-scheduled-task-name">🚩 FLAG 8 — Persistence: Scheduled Task Name</h2>
+<p><strong>Attack Phase:</strong> Persistence (TA0003)
+<strong>MITRE Technique:</strong> Scheduled Task/Job: Scheduled Task (T1053.005)</p>
+<p><strong>Finding:</strong>
+The attacker created a scheduled task named <strong><code>Windows Update Check</code></strong> to maintain persistent execution on the compromised system.</p>
+<p><strong>Why it matters:</strong>
+Malicious scheduled tasks allow attackers to re-execute payloads automatically, surviving reboots while blending in with legitimate system maintenance activity.</p>
+<pre class="hljs"><code><div>DeviceProcessEvents
+| where DeviceName == &quot;azuki-sl&quot;
+| where TimeGenerated between (datetime(2025-11-19) .. datetime(2025-11-20))
+| where FileName == &quot;schtasks.exe&quot;
+| where ProcessCommandLine has &quot;/create&quot;
+| project TimeGenerated, FileName, ProcessCommandLine
+| order by TimeGenerated asc
+</div></code></pre>
+<p><img src="image-7.png" alt="DeviceProcessEvents showing schtasks.exe creating task &quot;Windows Update Check&quot;"></p>
+<h2 id="%F0%9F%9A%A9-flag-9--persistence-scheduled-task-target">🚩 FLAG 9 — Persistence: Scheduled Task Target</h2>
+<p><strong>Attack Phase:</strong> Persistence (TA0003)
+<strong>MITRE Technique:</strong> Scheduled Task/Job: Scheduled Task (T1053.005)</p>
+<p><strong>Finding:</strong>
+The scheduled task was configured to execute <strong><code>C:\ProgramData\WindowsCache\svchost.exe</code></strong> as its payload.</p>
+<p><strong>Why it matters:</strong>
+Pointing a scheduled task to a malicious executable in a hidden staging directory ensures reliable persistence while masquerading as a legitimate Windows process.</p>
+<h2 id="%F0%9F%9A%A9-flag-10--command--control-c2-server-address">🚩 FLAG 10 — Command &amp; Control: C2 Server Address</h2>
+<p><strong>Attack Phase:</strong> Command and Control (TA0011)
+<strong>MITRE Technique:</strong> Application Layer Protocol (T1071)</p>
+<p><strong>Finding:</strong>
+The compromised system established outbound communication with the external IP address 78.141.196.6, identified as the attacker’s command-and-control server.</p>
+<p><strong>Why it matters:</strong>
+Identifying the C2 server enables network blocking, threat intelligence enrichment, and detection of additional compromised hosts communicating with the same infrastructure.</p>
+<p><strong>Explanation:</strong></p>
+<p>The IP address <strong>78.141.196.6</strong> was identified as the command-and-control (C2) server through correlation of multiple stages of the attack. This IP was initially observed hosting malicious payloads downloaded via <strong>certutil.exe</strong> and PowerShell <strong>Invoke-WebRequest</strong>. After persistence was established using a scheduled task, the malicious executable (<strong>svchost.exe</strong>) located in the staging directory continued to initiate outbound network connections to the same IP address. The repeated communication with this external host across payload delivery, execution, and post-persistence activity confirms that <strong>78.141.196.6</strong> functioned as the attacker’s C2 infrastructure rather than a one-time download source.</p>
+<h2 id="%F0%9F%9A%A9-flag-11--command--control-c2-communication-port">🚩 FLAG 11 — Command &amp; Control: C2 Communication Port</h2>
+<p><strong>Attack Phase:</strong> Command and Control (TA0011)
+<strong>MITRE Technique:</strong> Application Layer Protocol (T1071)</p>
+<p><strong>Finding:</strong>
+The malicious persistent process (<code>svchost.exe</code> located in <code>C:\ProgramData\WindowsCache</code>) communicated with the attacker’s command-and-control infrastructure over destination port <strong>443</strong>.</p>
+<p><strong>Why it matters:</strong>
+Port <strong>443</strong> enables C2 traffic to blend into normal HTTPS activity, allowing attackers to maintain persistent control while evading basic network filtering that focuses on non-standard ports.</p>
+<pre class="hljs"><code><div>DeviceNetworkEvents
+| where DeviceName == &quot;azuki-sl&quot;
+| where TimeGenerated between (datetime(2025-11-19) .. datetime(2025-11-20))
+| where RemoteIP == &quot;78.141.196.6&quot;
+| project TimeGenerated, RemoteIP, RemotePort, InitiatingProcessFileName, InitiatingProcessCommandLine
+</div></code></pre>
+<p><img src="image-8.png" alt="DeviceNetworkEvents showing svchost.exe communicating with C2 over port 443"></p>
+<p><strong>Explaintion</strong>
+Although port 8080 was used earlier in the attack for payload and script downloads via certutil.exe and PowerShell, the persistent malicious process (svchost.exe located in C:\ProgramData\WindowsCache) later established outbound communication with the attacker infrastructure over port 443. Because port 443 was used for post-persistence, ongoing communication, it represents the true command-and-control (C2) channel rather than the initial delivery mechanism.</p>
+<h2 id="%F0%9F%9A%A9-flag-12--credential-access-credential-theft-tool">🚩 FLAG 12 — Credential Access: Credential Theft Tool</h2>
+<p><strong>Attack Phase:</strong> Credential Access (TA0006)
+<strong>MITRE Technique:</strong> OS Credential Dumping: LSASS Memory (T1003.001)</p>
+<p><strong>Finding:</strong>
+The attacker executed the credential dumping tool <strong><code>mm.exe</code></strong>, which was used to extract credentials from system memory.</p>
+<p><strong>Why it matters:</strong>
+Credential dumping allows attackers to harvest plaintext passwords and hashes, enabling privilege escalation, lateral movement, and long-term compromise.</p>
+<pre class="hljs"><code><div>DeviceProcessEvents
+| where DeviceName == &quot;azuki-sl&quot;
+| where TimeGenerated between (
+    datetime(2025-11-19 19:05:33.766)
+    ..
+    datetime(2025-11-19 19:09:21.326)
+)
+| project TimeGenerated, FileName, ProcessCommandLine, AccountName
+| order by TimeGenerated asc
+</div></code></pre>
+<p><img src="image-9.png" alt="DeviceProcessEvents showing mm.exe executing credential dumping commands"></p>
+<p><strong>Explanation (Credential Theft Command):</strong>
+The command <code>mm.exe privilege::debug sekurlsa::logonpasswords exit</code> indicates execution of a renamed <strong>Mimikatz</strong> credential dumping tool. The <code>privilege::debug</code> argument enables access to protected system memory, while <code>sekurlsa::logonpasswords</code> extracts plaintext credentials, hashes, and authentication material from the LSASS process. This confirms active credential theft on the compromised system.</p>
+<h2 id="%F0%9F%9A%A9-flag-13--credential-access-memory-extraction-module">🚩 FLAG 13 — Credential Access: Memory Extraction Module</h2>
+<p><strong>Attack Phase:</strong> Credential Access (TA0006)
+<strong>MITRE Technique:</strong> OS Credential Dumping: LSASS Memory (T1003.001)</p>
+<p><strong>Finding:</strong>
+The attacker used the <strong><code>sekurlsa::logonpasswords</code></strong> module to extract credentials from LSASS memory.</p>
+<p><strong>Why it matters:</strong>
+This module enables theft of plaintext passwords, hashes, and authentication material, facilitating privilege escalation and lateral movement.</p>
+<p><strong>Query / Screenshot:</strong>
+Refer to <strong>FLAG 12</strong></p>
+<h2 id="%F0%9F%9A%A9-flag-14--collection-data-staging-archive">🚩 FLAG 14 — Collection: Data Staging Archive</h2>
+<p><strong>Attack Phase:</strong> Collection (TA0009)
+<strong>MITRE Technique:</strong> Archive Collected Data: Archive via Utility (T1560.001)</p>
+<p><strong>Finding:</strong>
+The attacker created the compressed archive <strong><code>export-data.zip</code></strong> in the staging directory prior to exfiltration.</p>
+<p><strong>Why it matters:</strong>
+Compressing collected data reduces size, simplifies transfer, and is a common precursor to data exfiltration.</p>
+<pre class="hljs"><code><div>DeviceProcessEvents
+| where DeviceName == &quot;azuki-sl&quot;
+| where TimeGenerated between (datetime(2025-11-19) .. datetime(2025-11-20))
+| where ProcessCommandLine contains &quot;export-data.zip&quot;
+| project TimeGenerated, FileName, ProcessCommandLine
+</div></code></pre>
+<p><img src="image-10.png" alt="DeviceProcessEvents showing creation and use of export-data.zip in ProgramData staging"></p>
+<h2 id="%F0%9F%9A%A9-flag-15--exfiltration-exfiltration-channel">🚩 FLAG 15 — Exfiltration: Exfiltration Channel</h2>
+<p><strong>Attack Phase:</strong> Exfiltration (TA0010)
+<strong>MITRE Technique:</strong> Exfiltration Over Web Service (T1567.002)</p>
+<p><strong>Finding:</strong>
+The attacker exfiltrated stolen data using <strong>Discord</strong> via a webhook endpoint.</p>
+<p><strong>Why it matters:</strong>
+Abusing legitimate cloud services like Discord allows attackers to blend malicious data exfiltration with normal HTTPS traffic, making detection and blocking more difficult.</p>
+<h2 id="%F0%9F%9A%A9-flag-16--anti-forensics-log-tampering">🚩 FLAG 16 — Anti-Forensics: Log Tampering</h2>
+<p><strong>Attack Phase:</strong> Defense Evasion (TA0005)
+<strong>MITRE Technique:</strong> Indicator Removal on Host: Clear Windows Event Logs (T1070.001)</p>
+<p><strong>Finding:</strong>
+The attacker cleared Windows event logs using <code>wevtutil.exe</code>, with the <strong>Security</strong> log being cleared first.</p>
+<p><strong>Why it matters:</strong>
+Clearing event logs removes forensic evidence of attacker activity, making incident investigation and timeline reconstruction more difficult.</p>
+<pre class="hljs"><code><div>DeviceProcessEvents
+| where DeviceName == &quot;azuki-sl&quot;
+| where TimeGenerated between (datetime(2025-11-19) .. datetime(2025-11-20))
+| where ProcessCommandLine has &quot;wevtutil.exe&quot;
+| where ProcessCommandLine has &quot; cl &quot;
+| project TimeGenerated, FileName, ProcessCommandLine
+| order by TimeGenerated asc
+</div></code></pre>
+<p><img src="image-12.png" alt="DeviceProcessEvents showing wevtutil.exe clearing Security log first"></p>
+<h2 id="%F0%9F%9A%A9-flag-17--impact-persistence-account">🚩 FLAG 17 — Impact: Persistence Account</h2>
+<p><strong>Attack Phase:</strong> Impact (TA0040)
+<strong>MITRE Technique:</strong> Create Account: Local Account (T1136.001)</p>
+<p><strong>Finding:</strong>
+The attacker created a local user account named <strong><code>support</code></strong> and added it to the <strong>Administrators</strong> group to maintain persistent privileged access.</p>
+<p><strong>Why it matters:</strong>
+Creating a hidden or benign-looking administrator account allows attackers to retain long-term access even if malware is removed or credentials are rotated.</p>
+<pre class="hljs"><code><div>DeviceProcessEvents
+| where DeviceName == &quot;azuki-sl&quot;
+| where TimeGenerated between (datetime(2025-11-19) .. datetime(2025-11-20))
+| where ProcessCommandLine has &quot;/add&quot;
+| project TimeGenerated, FileName, ProcessCommandLine
+| order by TimeGenerated asc
+</div></code></pre>
+<p><img src="image-13.png" alt="DeviceProcessEvents showing creation of local admin account &quot;support&quot;"></p>
+<h2 id="%F0%9F%9A%A9-flag-18--execution-malicious-script">🚩 FLAG 18 — Execution: Malicious Script</h2>
+<p><strong>Attack Phase:</strong> Execution (TA0002)
+<strong>MITRE Technique:</strong> Command and Scripting Interpreter: PowerShell (T1059.001)</p>
+<p><strong>Finding:</strong>
+The attacker executed the PowerShell script <strong><code>wupdate.ps1</code></strong> to automate multiple stages of the attack, including defense evasion, persistence, and credential access.</p>
+<p><strong>Why it matters:</strong>
+Malicious scripts enable attackers to chain actions together quickly and reliably, reducing manual interaction and increasing the speed and impact of the compromise.</p>
+<pre class="hljs"><code><div>DeviceProcessEvents
+| where DeviceName == &quot;azuki-sl&quot;
+| where TimeGenerated between (datetime(2025-11-19) .. datetime(2025-11-20))
+| where FileName == &quot;powershell.exe&quot;
+| where ProcessCommandLine contains &quot;wupdate.ps1&quot;
+| project TimeGenerated, FileName, ProcessCommandLine
+| order by TimeGenerated asc
+</div></code></pre>
+<p><img src="image-14.png" alt="DeviceProcessEvents showing execution of malicious PowerShell script wupdate.ps1"></p>
+<h2 id="%F0%9F%9A%A9-flag-19--lateral-movement-secondary-target">🚩 FLAG 19 — Lateral Movement: Secondary Target</h2>
+<p><strong>Attack Phase:</strong> Lateral Movement (TA0008)
+<strong>MITRE Technique:</strong> Use Alternate Authentication Material (T1550)</p>
+<p><strong>Finding:</strong>
+The attacker initiated a Remote Desktop connection to the secondary target system at IP address <strong>10.1.0.188</strong>.</p>
+<p><strong>Why it matters:</strong>
+Identifying lateral movement targets reveals attacker objectives and helps determine the scope of compromise across the network.</p>
+<pre class="hljs"><code><div>DeviceProcessEvents
+| where DeviceName == &quot;azuki-sl&quot;
+| where TimeGenerated between (datetime(2025-11-19) .. datetime(2025-11-20))
+| where ProcessCommandLine has_any (&quot;mstsc&quot;, &quot;cmdkey&quot;)
+| project TimeGenerated, FileName, ProcessCommandLine
+| order by TimeGenerated asc
+</div></code></pre>
+<p><img src="image-15.png" alt="DeviceProcessEvents showing mstsc.exe connecting to 10.1.0.188"></p>
+<h2 id="%F0%9F%9A%A9-flag-20--lateral-movement-remote-access-tool">🚩 FLAG 20 — Lateral Movement: Remote Access Tool</h2>
+<p><strong>Attack Phase:</strong> Lateral Movement (TA0008)
+<strong>MITRE Technique:</strong> Remote Services: Remote Desktop Protocol (T1021.001)</p>
+<p><strong>Finding:</strong>
+The attacker used <strong><code>mstsc.exe</code></strong> to establish a Remote Desktop connection to the secondary system during lateral movement.</p>
+<p><strong>Why it matters:</strong>
+Abusing built-in remote access tools like <code>mstsc.exe</code> allows attackers to move laterally while blending in with legitimate administrative activity, making detection more difficult.</p>
+<h2 id="recommendations">RECOMMENDATIONS</h2>
+<h3 id="immediate-actions">IMMEDIATE ACTIONS</h3>
+<ul>
+<li>Disable and reset credentials for all compromised accounts (<code>kenji.sato</code>, <code>support</code>)</li>
+<li>Remove unauthorized local administrator accounts</li>
+<li>Delete malicious scheduled tasks and staged malware files</li>
+<li>Reimage AZUKI-SL to ensure full eradication</li>
+<li>Block attacker IPs and domains at network perimeter</li>
+</ul>
+<hr>
+<h3 id="short-term-1%E2%80%937-days">SHORT-TERM (1–7 DAYS)</h3>
+<ul>
+<li>Enforce MFA for all privileged and remote access accounts</li>
+<li>Audit RDP usage and restrict access to approved source IP ranges</li>
+<li>Review and remove unauthorized Windows Defender exclusions</li>
+<li>Conduct credential resets for accounts accessed during the incident</li>
+<li>Perform endpoint-wide scans for indicators of compromise</li>
+</ul>
+<hr>
+<h3 id="long-term-improvements">LONG-TERM IMPROVEMENTS</h3>
+<ul>
+<li>Implement privileged access management (PAM) for administrative accounts</li>
+<li>Monitor for abuse of LOLBins such as <code>certutil</code>, <code>schtasks</code>, <code>cmdkey</code>, and <code>mstsc</code></li>
+<li>Enable alerting for Defender exclusion changes and scheduled task creation</li>
+<li>Improve credential hygiene and prohibit plaintext credential storage</li>
+<li>Conduct regular threat hunting focused on credential abuse and lateral movement</li>
+<li>Provide security awareness training on phishing and credential protection</li>
+</ul>
+<hr>
+
+</body>
+</html>
